@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Data Table</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="table-container">
+      <h1 class="data-table">Data Table</h1>
+      <table>
+        <thead>
+          <tr class="thead-row"></tr>
+        </thead>
+        <tbody class="tbody"></tbody>
+      </table>
+      <br />
+      <div class="pagination-section">
+        <select name="pages" id="pages">
+          <option value="5-per-page">Show 5</option>
+          <option value="10-per-page">Show 10</option>
+          <option value="20-per-page">Show 20</option>
+        </select>
+        <button id="pre" name="pre-btn">Pre</button>
+        <span id="pagination-description"></span>
+        <button id="next" name="next-btn">Next</button>
+      </div>
+    </div>
+
+    <script type="module" src="index.js"></script>
+  </body>
+</html>
