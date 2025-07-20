@@ -8,6 +8,10 @@ const paginationDes = document.getElementById("pagination-description");
 const preBtn = document.getElementById("pre");
 const nextBtn = document.getElementById("next");
 
+// initial rows per page
+let currentPage = 1;
+let rowsPerPage = 5;
+
 // displaying table head from users data
 function displayThead(users) {
   // clear anything if existed before
@@ -20,14 +24,18 @@ function displayThead(users) {
   });
 }
 
-// function call
-displayThead(users);
-
 // displaying table body from users data
-function displayTbody(users) {
+function displayTbody(users, currentPage, rowsPerPage) {
   // clear anything if existed before
   tbody.innerHTML = "";
-  users.forEach((user) => {
+  // calculate start and end index
+  let startIndex = (currentPage - 1) * rowsPerPage;
+  let endIndex = startIndex + rowsPerPage;
+
+  // slice the user array only to show the required rows
+  const paginatedUsers = users.slice(startIndex, endIndex);
+
+  paginatedUsers.forEach((user) => {
     let tr = document.createElement("tr");
 
     Object.values(user).forEach((value) => {
@@ -39,4 +47,13 @@ function displayTbody(users) {
   });
 }
 
-displayTbody(users);
+// function call
+displayThead(users);
+displayTbody(users, currentPage, rowsPerPage);
+
+// get info from user
+userSelection.addEventListener("change", (e) => {
+  rowsPerPage = parseInt(e.target.value.split("-")[0]);
+  currentPage = 1;
+  displayTbody(users, currentPage, rowsPerPage);
+});
