@@ -8,60 +8,117 @@ const emailError = document.getElementById("email-errors");
 const messageError = document.getElementById("message-errors");
 
 // functions for error input
-function validName(name) {
+
+function isValidName(name) {
   return name.length > 0;
 }
 
-function validEmail(emailInput) {
+function isValidEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(emailInput);
+  return emailRegex.test(email);
 }
 
-function validMessage(message) {
+function isValidMessage(message) {
   return message.length <= 200;
 }
 
 // function to do when submit button is clicked
+
 function doSubmit(event) {
   event.preventDefault();
-  nameError.innerHTML = "";
-  emailError.innerHTML = "";
-  messageError.innerHTML = "";
+  // clear the error message
+  nameError.value = "";
+  emailError.value = "";
+  messageError.value = "";
   let hasError = false;
 
-  if (!validName(nameInput.value)) {
+  if (!isValidName(nameInput.value)) {
     let p = document.createElement("p");
-    let errorText = "Name is Required!";
-    p.textContent = errorText;
+    p.textContent = "Name is required!";
     p.style.color = "red";
     nameError.appendChild(p);
     hasError = true;
   }
-  if (!validEmail(emailInput.value)) {
+  if (!isValidEmail(emailInput.value)) {
     let p = document.createElement("p");
-    let errorText = "Please enter a valid email!";
-    p.textContent = errorText;
+    p.textContent = "Please enter a valid email address!";
     p.style.color = "red";
     emailError.appendChild(p);
     hasError = true;
   }
-
-  if (!validMessage(message.value)) {
+  if (!isValidMessage(message.value)) {
     let p = document.createElement("p");
-    let errorText = "Message must be under 200 characters!";
-    p.textContent = errorText;
+    p.textContent = "Message should be under 200 words!";
     p.style.color = "red";
     messageError.appendChild(p);
     hasError = true;
   }
-
   if (!hasError) {
-    alert("Your form is successfully submitted!!!");
-    nameInput.value = "";
-    emailInput.value = "";
-    message.value = "";
+    alert("Your form is successfully submitted!");
+    nameError.value = "";
+    emailError.value = "";
+    messageError = "";
   }
 }
 
 // function call when you clicked submit button
 submitBtn.addEventListener("click", doSubmit);
+
+// // functions for error input
+// function validName(name) {
+//   return name.length > 0;
+// }
+
+// function validEmail(emailInput) {
+//   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//   return emailRegex.test(emailInput);
+// }
+
+// function validMessage(message) {
+//   return message.length <= 200;
+// }
+
+// // function to do when submit button is clicked
+// function doSubmit(event) {
+//   event.preventDefault();
+//   nameError.innerHTML = "";
+//   emailError.innerHTML = "";
+//   messageError.innerHTML = "";
+//   let hasError = false;
+
+//   if (!validName(nameInput.value)) {
+//     let p = document.createElement("p");
+//     let errorText = "Name is Required!";
+//     p.textContent = errorText;
+//     p.style.color = "red";
+//     nameError.appendChild(p);
+//     hasError = true;
+//   }
+//   if (!validEmail(emailInput.value)) {
+//     let p = document.createElement("p");
+//     let errorText = "Please enter a valid email!";
+//     p.textContent = errorText;
+//     p.style.color = "red";
+//     emailError.appendChild(p);
+//     hasError = true;
+//   }
+
+//   if (!validMessage(message.value)) {
+//     let p = document.createElement("p");
+//     let errorText = "Message must be under 200 characters!";
+//     p.textContent = errorText;
+//     p.style.color = "red";
+//     messageError.appendChild(p);
+//     hasError = true;
+//   }
+
+//   if (!hasError) {
+//     alert("Your form is successfully submitted!!!");
+//     nameInput.value = "";
+//     emailInput.value = "";
+//     message.value = "";
+//   }
+// }
+
+// // function call when you clicked submit button
+// submitBtn.addEventListener("click", doSubmit);
