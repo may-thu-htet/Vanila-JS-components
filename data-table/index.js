@@ -72,3 +72,12 @@ nextBtn.addEventListener("click", () => {
     paginationDes.textContent = `Page ${currentPage} of ${totalPages}`;
   }
 });
+
+// prev button
+preBtn.addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--;
+    displayTbody(users, currentPage, rowsPerPage);
+    paginationDes.textContent = `Page ${currentPage} of ${totalPages}`;
+  }
+});
