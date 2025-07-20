@@ -11,6 +11,7 @@ const nextBtn = document.getElementById("next");
 // initial rows per page
 let currentPage = 1;
 let rowsPerPage = 5;
+let totalPages = Math.ceil(users.length / rowsPerPage);
 
 // displaying table head from users data
 function displayThead(users) {
@@ -28,6 +29,10 @@ function displayThead(users) {
 function displayTbody(users, currentPage, rowsPerPage) {
   // clear anything if existed before
   tbody.innerHTML = "";
+
+  //   update the total page depending on the user data
+  totalPages = Math.ceil(users.length / rowsPerPage);
+
   // calculate start and end index
   let startIndex = (currentPage - 1) * rowsPerPage;
   let endIndex = startIndex + rowsPerPage;
@@ -45,6 +50,7 @@ function displayTbody(users, currentPage, rowsPerPage) {
     });
     tbody.appendChild(tr);
   });
+  paginationDes.textContent = `Page ${currentPage} of ${totalPages}`;
 }
 
 // function call
@@ -56,4 +62,13 @@ userSelection.addEventListener("change", (e) => {
   rowsPerPage = parseInt(e.target.value.split("-")[0]);
   currentPage = 1;
   displayTbody(users, currentPage, rowsPerPage);
+});
+
+// next button
+nextBtn.addEventListener("click", () => {
+  if (currentPage < totalPages) {
+    currentPage++;
+    displayTbody(users, currentPage, rowsPerPage);
+    paginationDes.textContent = `Page ${currentPage} of ${totalPages}`;
+  }
 });
