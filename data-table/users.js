@@ -1,3 +1,25 @@
+// fetch(my.api.com/users)
+/* async fetchUserFunction(endpoint, post = false, token="") => {
+    baseUrl = my.api.com/
+    api = baseUrl + endpoint
+    if(post) {
+      header = {
+        "Authorization":token
+      }
+    }
+    try{
+      const data = if post ? await fetch.post(api) : await fetch()
+      const users = json.strigify(data)
+      return users
+    }
+    catch(error) {
+    }
+  }
+
+  const users = fetchUsersFunction(users)
+  export users
+  */
+
 const users = [
   {
     id: 1,
