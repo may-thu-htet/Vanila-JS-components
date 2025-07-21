@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Edi-Table</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="table-container">
+      <h1 class="table-title">Data Table Fetched from API</h1>
+      <table>
+        <thead class="tableHead"></thead>
+        <tbody class="tableBody"></tbody>
+      </table>
+      <br />
+      <div class="paginationSection">
+        <select name="pages" id="pages" class="pages">
+          <option value="5-per-page">Show 5 rows</option>
+          <option value="10-per-page">Show 10 rows</option>
+          <option value="20-per-page">Show 20 rows</option>
+        </select>
+        <button class="pre" name="pre" disabled>Previous</button>
+        <span class="pagi-des" id="pagi-des"></span>
+        <button class="next" name="next">Next</button>
+      </div>
+    </div>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
