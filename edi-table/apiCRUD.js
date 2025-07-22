@@ -27,6 +27,8 @@ export async function updateDevice(id, data) {
   }
 }
 
+export async function name(params) {}
+
 /**
  * Sends a DELETE request to remove a device.
  * @param {string} id - The ID of the device.
