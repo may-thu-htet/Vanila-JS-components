@@ -24,7 +24,7 @@ export const devices = [];
 // https://api.escuelajs.co/api/v1/products [API for editing and deleting]
 export async function getDeviceData() {
   try {
-    const response = await fetch("https://api.restful-api.dev/objects");
+    const response = await fetch("http://localhost:3000/api/products");
     const rawData = await response.json();
 
     // Map each device to an object with only the first 4 keys

@@ -1,4 +1,4 @@
-const BASE_URL = "https://api.restful-api.dev/objects";
+const BASE_URL = "http://localhost:3000/api/products";
 
 /**
  * Sends a PUT request to update a device on the server.
