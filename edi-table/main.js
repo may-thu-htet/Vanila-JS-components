@@ -72,7 +72,7 @@ async function init() {
   updateButtonStates();
 }
 
-function handlePageNumbers() {
+export function handlePageNumbers() {
   const dataSource = activeDataSet == "users" ? users : devices;
   totalPages = Math.ceil(dataSource.length / noOfRows);
   renderTableBody(tbody, dataSource, currentPage, noOfRows);

@@ -1,4 +1,5 @@
-import { updateDevice, deleteDevice } from "./apiCRUD";
+import { updateDevice, deleteDevice } from "./apiCRUD.js";
+import { handlePageNumbers } from "./main.js";
 
 export function renderTableHeader(thead, users) {
   thead.innerHTML = "";
