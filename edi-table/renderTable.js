@@ -8,7 +8,7 @@ export function renderTableHeader(thead, data) {
   // Use the first item's keys, limited to 4
   if (data.length > 0) {
     Object.keys(data[0])
-      .slice(0, 2)
+      .slice(0, 4)
       .forEach((key) => {
         let th = document.createElement("th");
         th.textContent = key[0].toUpperCase() + key.slice(1);
@@ -37,7 +37,7 @@ export function renderTableBody(tbody, data, currentPage, noOfRows) {
 
     // Render only first 4 keys for each row
     Object.entries(rowData)
-      .slice(0, 2)
+      .slice(0, 4)
       .forEach(([key, value]) => {
         if (key === "_editing") return;
         let td = document.createElement("td");
