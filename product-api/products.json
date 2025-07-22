@@ -1,7 +1,7 @@
 {
   "products": [
     {
-      "id": 0,
+      "id": 1,
       "title": "Classic Heather Gray Hoodie",
       "slug": "classic-heather-gray-hoodie",
       "price": 69,
@@ -23,10 +23,10 @@
       "updatedAt": "2025-07-22T16:00:45.777Z"
     },
     {
-      "id": 1,
-      "title": "Classic Heather Gray Hoodie",
-      "slug": "classic-heather-gray-hoodie",
-      "price": 69,
+      "id": 2,
+      "title": "Silk Dress",
+      "slug": "silk dress",
+      "price": 100,
       "description": "Stay cozy and stylish with our Classic Heather Gray Hoodie. Crafted from soft, durable fabric, it features a kangaroo pocket, adjustable drawstring hood, and ribbed cuffs. Perfect for a casual day out or a relaxing evening in, this hoodie is a versatile addition to any wardrobe.",
       "category": {
         "id": 8,
