@@ -4,7 +4,7 @@ export function renderTableHeader(thead, users) {
 
   Object.keys(users[0]).forEach((key) => {
     let th = document.createElement("th");
-    th.textContent = key;
+    th.textContent = key[0].toUpperCase() + key.slice(1);
     tr.appendChild(th);
   });
   thead.appendChild(tr);

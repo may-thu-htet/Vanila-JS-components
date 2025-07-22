@@ -1,4 +1,5 @@
 import { users, getData } from "./usersFromApi.js";
+import { devices, getDeviceData } from "./objectsFromApi.js";
 import { renderTableBody, renderTableHeader } from "./renderTable.js";
 
 // DOM elements
@@ -13,6 +14,7 @@ const nextBtn = document.querySelector(".next");
 let currentPage = 1;
 let noOfRows = 5;
 let totalPages = 1;
+let activeDataSet = "users";
 
 // call function
 init();
@@ -50,13 +52,24 @@ nextBtn.addEventListener("click", () => {
 // init function
 async function init() {
   await getData();
-  renderTableHeader(thead, users);
+  await getDeviceData();
+
+  // Choose which dataset to render depending on current HTML/page
+  // You can do this based on a class name, body ID, or a hidden field
+  if (document.body.classList.contains("user-page")) {
+    activeDataSet = "users";
+    renderTableHeader(thead, users);
+  } else {
+    activeDataSet = "devices";
+    renderTableHeader(thead, devices);
+  }
   handlePageNumbers();
   updateButtonStates();
 }
 
 function handlePageNumbers() {
-  totalPages = Math.ceil(users.length / noOfRows);
-  renderTableBody(tbody, users, currentPage, noOfRows);
+  const dataSource = activeDataSet == users ? users : devices;
+  totalPages = Math.ceil(dataSource.length / noOfRows);
+  renderTableBody(tbody, dataSource, currentPage, noOfRows);
   paginationDes.textContent = `Page ${currentPage} of ${totalPages}`;
 }
