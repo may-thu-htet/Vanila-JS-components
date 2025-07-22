@@ -1,3 +1,5 @@
+import { updateDevice, deleteDevice } from "./apiCRUD";
+
 export function renderTableHeader(thead, users) {
   thead.innerHTML = "";
   let tr = document.createElement("tr");
@@ -13,39 +15,122 @@ export function renderTableHeader(thead, users) {
   thead.appendChild(tr);
 }
 
-export function renderTableBody(tbody, users, currentPage, noOfRows) {
+export function renderTableBody(tbody, data, currentPage, noOfRows) {
   tbody.innerHTML = "";
 
   //   let totalPages = Math.ceil(users.length/noOfRows);
   const startIndex = (currentPage - 1) * noOfRows;
   const endIndex = startIndex + noOfRows;
-  const usersBySelectedMenu = users.slice(startIndex, endIndex);
+  const dataSlice = data.slice(startIndex, endIndex);
 
-  usersBySelectedMenu.forEach((user) => {
+  dataSlice.forEach((rowData, i) => {
     let tr = document.createElement("tr");
+    const rowIndex = startIndex + i; // to access the original array
 
-    Object.values(user).forEach((value) => {
+    const isEditing = rowData._editing === true;
+
+    // Render each cell
+    Object.entries(rowData).forEach(([key, value]) => {
+      if (key === "_editing") return; // skip internal flag
       let td = document.createElement("td");
-      td.textContent = value;
+
+      if (isEditing) {
+        const input = document.createElement("input");
+        input.value = value;
+        input.name = key;
+        td.appendChild(input);
+      } else {
+        td.textContent = value;
+      }
+
       tr.appendChild(td);
     });
 
-    const actionTd = document.createElement("td");
-    const editBtn = document.createElement("button");
-    editBtn.setAttribute("class", "edit-button");
-    editBtn.textContent = "Edit";
+    // Actions (Edit/Save + Cancel)
 
-    const deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "Delete";
-    deleteBtn.setAttribute = ("class", "delete-button");
+    const actionTd = document.createElement("td");
 
     const buttonWrapper = document.createElement("div");
     buttonWrapper.className = "buttons";
+
+    if (isEditing) {
+      const saveBtn = document.createElement("button");
+      saveBtn.textContent = "Save";
+      saveBtn.onclick = () => saveRow(rowIndex, tr, data, handlePageNumbers);
+      buttonWrapper.appendChild(saveBtn);
+      actionTd.appendChild(buttonWrapper);
+
+      const cancelBtn = document.createElement("button");
+      cancelBtn.textContent = "Cancel";
+      cancelBtn.onclick = () => cancelEdit(rowIndex, data, handlePageNumbers);
+      buttonWrapper.appendChild(cancelBtn);
+    } else {
+      const editBtn = document.createElement("button");
+      editBtn.textContent = "Edit";
+      editBtn.onclick = () => {
+        // Clear any previous editing
+        data.forEach((d) => delete d._editing);
+        data[rowIndex]._editing = true;
+        renderTableBody(tbody, data, currentPage, noOfRows);
+      };
+      buttonWrapper.appendChild(editBtn);
+    }
+    // const editBtn = document.createElement("button");
+    // editBtn.setAttribute("class", "edit-button");
+    // editBtn.textContent = "Edit";
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.onclick = async () => {
+      const confirmed = confirm("Are you sure you want to delete this row?");
+      if (!confirmed) return;
+
+      const id = data[rowIndex].id;
+
+      const success = await deleteDevice(id);
+      if (success) {
+        data.splice(rowIndex, 1); // remove from local data
+        handlePageNumbers();
+      } else {
+        alert("Failed to delete row from API.");
+      }
+    };
+
+    deleteBtn.textContent = "Delete";
+    deleteBtn.setAttribute("class", "delete-button");
+
     buttonWrapper.appendChild(deleteBtn);
-    buttonWrapper.appendChild(editBtn);
 
     actionTd.appendChild(buttonWrapper);
     tr.appendChild(actionTd);
     tbody.appendChild(tr);
   });
+}
+
+// helper functions
+export async function saveRow(index, tr, data, handlePageNumbers) {
+  const inputs = tr.querySelectorAll("input");
+  inputs.forEach((input) => {
+    data[index][input.name] = input.value;
+  });
+
+  const id = data[index].id;
+
+  try {
+    await updateDevice(id, {
+      name: data[index].name,
+      data: data[index].data,
+    });
+    delete data[index]._editing;
+    handlePageNumbers();
+  } catch (err) {
+    alert("Failed to save changes.");
+  }
+}
+export function cancelEdit(index, data, handlePageNumbers) {
+  if (data[index]) {
+    delete data[index]._editing;
+  }
+  if (typeof handlePageNumbers === "function") {
+    handlePageNumbers(); // Refresh the table
+  }
 }

@@ -1,6 +1,11 @@
 import { users, getData } from "./usersFromApi.js";
 import { devices, getDeviceData } from "./objectsFromApi.js";
-import { renderTableBody, renderTableHeader } from "./renderTable.js";
+import {
+  renderTableBody,
+  renderTableHeader,
+  saveRow,
+  cancelEdit,
+} from "./renderTable.js";
 
 // DOM elements
 const thead = document.querySelector(".tableHead");
@@ -68,7 +73,7 @@ async function init() {
 }
 
 function handlePageNumbers() {
-  const dataSource = activeDataSet == users ? users : devices;
+  const dataSource = activeDataSet == "users" ? users : devices;
   totalPages = Math.ceil(dataSource.length / noOfRows);
   renderTableBody(tbody, dataSource, currentPage, noOfRows);
   paginationDes.textContent = `Page ${currentPage} of ${totalPages}`;

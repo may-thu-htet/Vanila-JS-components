@@ -27,3 +27,11 @@ td {
   display: flex;
   justify-content: center;
 }
+
+.edit-button,
+.delete-button {
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
