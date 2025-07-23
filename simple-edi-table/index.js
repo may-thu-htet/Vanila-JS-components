@@ -69,27 +69,32 @@ async function displayTableBody(products) {
       }
       tr.appendChild(td);
     });
-    // create edit/delete button
-    const editButton = document.createElement("button");
-    editButton.textContent = "Edit";
-    editButton.className = "btn edit-btn";
 
-    const buttonWrapper = document.createElement("div");
-    buttonWrapper.className = "button-wrapper";
-
-    buttonWrapper.appendChild(editButton);
-
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "Delete";
-    deleteButton.className = "btn delete-btn";
-
-    buttonWrapper.appendChild(deleteButton);
-
-    tr.appendChild(buttonWrapper);
+    tr.appendChild(createEdiDelButton());
     tbody.appendChild(tr);
   });
 }
 // -----------------------------------------------------------------------------------------
+
+// function for creating edit/delete button
+function createEdiDelButton() {
+  // create edit/delete button
+  const editButton = document.createElement("button");
+  editButton.textContent = "Edit";
+  editButton.className = "btn edit-btn";
+
+  const buttonWrapper = document.createElement("div");
+  buttonWrapper.className = "button-wrapper";
+
+  buttonWrapper.appendChild(editButton);
+
+  const deleteButton = document.createElement("button");
+  deleteButton.textContent = "Delete";
+  deleteButton.className = "btn delete-btn";
+
+  buttonWrapper.appendChild(deleteButton);
+  return buttonWrapper;
+}
 
 // main function to fetch and render
 async function initTable() {
@@ -101,6 +106,32 @@ async function initTable() {
 initTable();
 
 // ---------------------------------------------------------------------------------------------
+
+// function for adding a new row to the table
+const addRowBtn = document.querySelector(".add-row");
+
+// function to create input  cell
+function createInput(type = "text") {
+  const td = document.createElement("td");
+  const input = document.createElement("input");
+  input.type = type;
+  input.className = "input";
+  td.appendChild(input);
+  return td;
+}
+
+// event listener
+addRowBtn.addEventListener("click", () => {
+  const tr = document.createElement("tr");
+  const keys = Object.keys(products).slice(0, 4);
+  for (let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    const inputType = typeof products[0][key];
+    tr.appendChild(createInput(inputType));
+  }
+  tr.appendChild(createEdiDelButton());
+  tbody.appendChild(tr);
+});
 
 /**
  * Product Management Module

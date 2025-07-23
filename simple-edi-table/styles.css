@@ -104,3 +104,15 @@ tr:hover div {
   background-color: rgb(190, 124, 1);
   color: white;
 }
+
+tr .input {
+  width: 95%;
+  /* margin-right: 5px; */
+}
+
+input:focus {
+  outline: none;
+  background-color: #cbdef8;
+  border: 1px solid rgb(123, 123, 123);
+  border-radius: 2px;
+}
