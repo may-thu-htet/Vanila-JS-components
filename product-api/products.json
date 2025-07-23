@@ -43,6 +43,50 @@
       ],
       "creationAt": "2025-07-22T12:51:19.000Z",
       "updatedAt": "2025-07-22T12:51:19.000Z"
+    },
+    {
+      "id": 3,
+      "title": "Myanmar Dress",
+      "slug": "myanmar dress",
+      "price": 200,
+      "description": "Stay cozy and stylish with our Classic Heather Gray Hoodie. Crafted from soft, durable fabric, it features a kangaroo pocket, adjustable drawstring hood, and ribbed cuffs. Perfect for a casual day out or a relaxing evening in, this hoodie is a versatile addition to any wardrobe.",
+      "category": {
+        "id": 8,
+        "name": "Clothes",
+        "slug": "clothes",
+        "image": "https://i.imgur.com/QkIa5tT.jpeg",
+        "creationAt": "2025-07-22T12:51:16.000Z",
+        "updatedAt": "2025-07-22T12:51:16.000Z"
+      },
+      "images": [
+        "https://i.imgur.com/cHddUCu.jpeg",
+        "https://i.imgur.com/CFOjAgK.jpeg",
+        "https://i.imgur.com/wbIMMme.jpeg"
+      ],
+      "creationAt": "2025-07-22T12:51:19.000Z",
+      "updatedAt": "2025-07-22T12:51:19.000Z"
+    },
+    {
+      "id": 4,
+      "title": "Jean Dress",
+      "slug": "jean dress",
+      "price": 125,
+      "description": "Stay cozy and stylish with our Classic Heather Gray Hoodie. Crafted from soft, durable fabric, it features a kangaroo pocket, adjustable drawstring hood, and ribbed cuffs. Perfect for a casual day out or a relaxing evening in, this hoodie is a versatile addition to any wardrobe.",
+      "category": {
+        "id": 8,
+        "name": "Clothes",
+        "slug": "clothes",
+        "image": "https://i.imgur.com/QkIa5tT.jpeg",
+        "creationAt": "2025-07-22T12:51:16.000Z",
+        "updatedAt": "2025-07-22T12:51:16.000Z"
+      },
+      "images": [
+        "https://i.imgur.com/cHddUCu.jpeg",
+        "https://i.imgur.com/CFOjAgK.jpeg",
+        "https://i.imgur.com/wbIMMme.jpeg"
+      ],
+      "creationAt": "2025-07-22T12:51:19.000Z",
+      "updatedAt": "2025-07-22T12:51:19.000Z"
     }
   ]
 }
