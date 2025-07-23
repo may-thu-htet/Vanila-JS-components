@@ -39,11 +39,11 @@
     },
     {
       "id": 6,
-      "title": "dfdfd",
-      "slug": "fdfsdfsdf",
-      "price": "300",
-      "creationAt": "2025-07-23T17:25:23.660Z",
-      "updatedAt": "2025-07-23T17:27:02.591Z"
+      "title": "Jean Pants",
+      "slug": "jean pants",
+      "price": "35",
+      "creationAt": "2025-07-23T17:30:45.194Z",
+      "updatedAt": "2025-07-23T17:30:45.194Z"
     }
   ]
 }
