@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+  gap: 10px;
 }
 
 .table-title {
@@ -88,5 +89,18 @@ tr:hover div {
 
 .delete-btn:hover {
   background-color: #6e010a;
+  color: white;
+}
+
+.add-row {
+  box-shadow: 1px 1px 5px rgb(145, 145, 145);
+  border: none;
+  /* border-radius: 5px; */
+  line-height: 30px;
+  background-color: rgb(253, 189, 72);
+}
+
+.add-row:hover {
+  background-color: rgb(190, 124, 1);
   color: white;
 }
