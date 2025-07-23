@@ -113,34 +113,56 @@ initTable();
 const addRowBtn = document.querySelector(".add-row");
 
 // function to create input  cell
-function createInput(type = "text") {
+function createInput(type = "text", value = "", key) {
   const td = document.createElement("td");
   const input = document.createElement("input");
   input.type = type;
+  input.value = value;
   input.className = "input";
+  if (key === "price") {
+    td.classList.add("price");
+  }
   td.appendChild(input);
   return td;
 }
 
 // add row button event listener
-addRowBtn.addEventListener("click", () => {
+addRowBtn.addEventListener("click", createInputRow);
+
+// function to create inputRow
+function createInputRow() {
+  if (!products.length) {
+    console.warn("No products available to create input row");
+    return;
+  }
+
   const tr = document.createElement("tr");
-  const keys = Object.keys(products).slice(0, 4);
+  const keys = Object.keys(products[0]).slice(0, 4);
+
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i];
     const inputType = typeof products[0][key];
-    tr.appendChild(createInput(inputType));
+    tr.appendChild(createInput(inputType, "", key));
   }
-  tr.appendChild(createEdiDelButton());
+
+  // Create button wrapper and append to tr
+  const td = document.createElement("td");
+  const buttonWrapper = document.createElement("div");
+  buttonWrapper.className = "button-wrapper";
+
+  // Add save, cancel, delete buttons
+  buttonWrapper.appendChild(createBtn("save"));
+  buttonWrapper.appendChild(createBtn("cancel"));
+  buttonWrapper.appendChild(createBtn("delete"));
+
+  td.appendChild(buttonWrapper);
+  tr.appendChild(td);
   tbody.appendChild(tr);
-});
+}
 
 //--------------------------------------------------------------------------------------------
 
-// function to handle edit button click
-// function handleEditBtn() {
-//   createSaveCancle();
-// }
+// functions to handle edit button click
 
 // functin to create save and cancle button
 function createSaveCancel(editBtn) {
@@ -159,11 +181,92 @@ function createSaveCancel(editBtn) {
 }
 
 // event listener to edit button
-// const editButton = document.querySelector(".edit-btn");
+
 tbody.addEventListener("click", (e) => {
-  if (e.target && e.target.classList.contains("edit-btn"))
+  if (e.target && e.target.classList.contains("edit-btn")) {
     createSaveCancel(e.target);
+    const tr = e.target.closest("tr");
+    turnRowIntoInput(tr);
+  }
+  if (e.target && e.target.classList.contains("save-btn")) {
+    saveRow(e.target.closest("tr"));
+  }
+  if (e.target && e.target.classList.contains("cancel-btn")) {
+    cancelEdit(e.target.closest("tr"));
+  }
+  if (e.target && e.target.classList.contains("delete-btn")) {
+    handleDelete(e.target.closest("tr"));
+  }
 });
+
+// function to turn row into input
+function turnRowIntoInput(tr) {
+  const tds = tr.querySelectorAll("td");
+
+  for (let i = 0; i < tds.length - 1; i++) {
+    const input = document.createElement("input");
+    const td = tds[i];
+    const originalValue = td.textContent.trim();
+
+    // Store original value
+    td.setAttribute("data-original", originalValue);
+
+    input.type = td.classList.contains("price") ? "number" : "text";
+    input.value = originalValue;
+    input.className = "input";
+    td.textContent = "";
+    td.appendChild(input);
+  }
+}
+
+// ----------------------------------------------------------------------------------------------
+
+// function for saving the edited value
+function saveRow(tr) {
+  const tds = tr.querySelectorAll("td");
+
+  for (let i = 0; i < tds.length - 1; i++) {
+    const td = tds[i];
+    const input = td.querySelector("input");
+    if (!input) continue;
+
+    const newValue = input.value;
+    td.textContent = newValue;
+    td.removeAttribute("data-original");
+  }
+  resetButtonWrapper(tr);
+}
+
+// function for cancelling the edition
+function cancelEdit(tr) {
+  const tds = tr.querySelectorAll("td");
+
+  for (let i = 0; i < tds.length - 1; i++) {
+    const td = tds[i];
+    const originalValue = td.getAttribute("data-original");
+
+    td.textContent = originalValue;
+    td.removeAttribute("data-original");
+  }
+  resetButtonWrapper(tr);
+}
+
+// functin for removing save and cancel buttons and displaying back edit button
+function resetButtonWrapper(tr) {
+  const wrapper = tr.querySelector(".button-wrapper");
+  if (!wrapper) return;
+
+  wrapper.innerHTML = "";
+  wrapper.appendChild(createBtn("edit"));
+  wrapper.appendChild(createBtn("delete"));
+}
+
+// handler functin for delete button
+function handleDelete(tr) {
+  if (tr && confirm("Are you sure you want to delete this row?")) {
+    tr.remove();
+  }
+}
 
 /**
  * Product Management Module
