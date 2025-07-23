@@ -1,10 +1,11 @@
 // fetching data from api
 
 const products = [];
+const BASE_URL = "http://localhost:3000/api/products";
 
 async function getProductData() {
   try {
-    const response = await fetch("http://localhost:3000/api/products");
+    const response = await fetch(BASE_URL);
     const rawData = await response.json();
 
     const modifiedData = rawData.map((product) => {
@@ -59,11 +60,13 @@ async function displayTableBody(products) {
   products.forEach((product) => {
     // creat tr element for each product
     const tr = document.createElement("tr");
+    tr.dataset.id = product.id || product._id; //adjust based on backend
 
     //   create td element for each table cell
     Object.entries(product).forEach(([key, val]) => {
       const td = document.createElement("td");
       td.textContent = val;
+      td.setAttribute("data-key", key); // Save key here too
       if (key == "price") {
         td.className = "price";
       }
@@ -115,6 +118,7 @@ const addRowBtn = document.querySelector(".add-row");
 // function to create input  cell
 function createInput(type = "text", value = "", key) {
   const td = document.createElement("td");
+  td.setAttribute("data-key", key);
   const input = document.createElement("input");
   input.type = type;
   input.value = value;
@@ -180,7 +184,7 @@ function createSaveCancel(editBtn) {
   buttonWrapper.insertBefore(cancelBtn, deleteBtn);
 }
 
-// event listener to edit button
+// event listener to edit, save, delete buttons
 
 tbody.addEventListener("click", (e) => {
   if (e.target && e.target.classList.contains("edit-btn")) {
@@ -202,6 +206,7 @@ tbody.addEventListener("click", (e) => {
 // function to turn row into input
 function turnRowIntoInput(tr) {
   const tds = tr.querySelectorAll("td");
+  console.log({ tds });
 
   for (let i = 0; i < tds.length - 1; i++) {
     const input = document.createElement("input");
@@ -210,9 +215,11 @@ function turnRowIntoInput(tr) {
 
     // Store original value
     td.setAttribute("data-original", originalValue);
+    const key = td.getAttribute("data-key") || ""; // Get the column name
+    if (!key) continue;
 
-    input.type = td.classList.contains("price") ? "number" : "text";
-    input.value = originalValue;
+    input.type = key === "price" ? "number" : "text"; // Use key instead of class
+    input.value = originalValue || "-";
     input.className = "input";
     td.textContent = "";
     td.appendChild(input);
@@ -222,19 +229,58 @@ function turnRowIntoInput(tr) {
 // ----------------------------------------------------------------------------------------------
 
 // function for saving the edited value
-function saveRow(tr) {
+async function saveRow(tr) {
   const tds = tr.querySelectorAll("td");
+  const inputs = tr.querySelectorAll("input");
 
-  for (let i = 0; i < tds.length - 1; i++) {
-    const td = tds[i];
-    const input = td.querySelector("input");
-    if (!input) continue;
+  const data = {};
+  // const keys = Object.keys(products[0]);
 
-    const newValue = input.value;
-    td.textContent = newValue;
-    td.removeAttribute("data-original");
+  // inputs.forEach((input, index) => {
+  //   const key = keys[index];
+  //   data[key] = input.value;
+  // });
+
+  inputs.forEach((input) => {
+    const td = input.parentElement;
+    const key = td.getAttribute("data-key");
+    if (key) {
+      data[key] = input.value;
+    }
+  });
+
+  const productId = tr.dataset.id;
+
+  if (productId) {
+    // update the existing row
+    await updateProduct(productId, data);
+  } else {
+    // Create new product on backend
+    const newProduct = await createNewProduct(data);
+    if (newProduct && newProduct.id) {
+      tr.dataset.id = newProduct.id;
+    }
   }
+
+  // update the ui with data
+  inputs.forEach((input) => {
+    const td = input.parentElement;
+    td.textContent = input.value;
+  });
+  /*
+// This is for showing the data not updating the database
+
+  // for (let i = 0; i < tds.length - 1; i++) {
+  //   const td = tds[i];
+  //   const input = td.querySelector("input");
+  //   if (!input) continue;
+
+  //   const newValue = input.value;
+  //   td.textContent = newValue;
+  //   td.removeAttribute("data-original");
+  // }
   resetButtonWrapper(tr);
+  */
 }
 
 // function for cancelling the edition
@@ -262,9 +308,76 @@ function resetButtonWrapper(tr) {
 }
 
 // handler functin for delete button
-function handleDelete(tr) {
-  if (tr && confirm("Are you sure you want to delete this row?")) {
-    tr.remove();
+async function handleDelete(tr) {
+  const productId = tr.dataset.id;
+  if (!confirm("Are you sure you want to delete this row?")) return;
+
+  if (productId) {
+    const success = await deleteProdut(productId);
+    if (!success) {
+      alert("Fail to delete the product from server!");
+      return;
+    }
+  }
+  tr.remove();
+}
+
+// ------------------------------------------------------------------------------------------
+// REFLECTING TABLE DATA TO DATABASE
+
+// updating the product
+async function updateProduct(productId, data) {
+  try {
+    const response = await fetch(`${BASE_URL}/${productId}`, {
+      method: "PUT",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) throw new Error("Update failed!");
+    const updatedProduct = await response.json();
+    console.log("Updated data: " + updatedProduct);
+    return updatedProduct;
+  } catch (error) {
+    console.error("Update error: " + error);
+    return null;
+  }
+}
+
+// creating a new product
+async function createNewProduct(data) {
+  try {
+    const response = await fetch(BASE_URL, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) throw new Error("Creation failed");
+    const newProduct = await response.json();
+    console.log("New Product created : " + newProduct);
+    return newProduct;
+  } catch (error) {
+    console.error("Creation error", error);
+    return null;
+  }
+}
+
+// deleting a product
+async function deleteProdut(productId) {
+  try {
+    const response = await fetch(`${BASE_URL}/${productId}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) throw new Error("Failed to delete product.");
+
+    const result = await response.json();
+    console.log("Deleted from DB:" + result);
+    return true;
+  } catch (error) {
+    console.error("Delete error, " + error);
+    return false;
   }
 }
 
