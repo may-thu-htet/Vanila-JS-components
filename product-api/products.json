@@ -4,8 +4,9 @@
       "id": 1,
       "title": "Classic Heather RedHoodie",
       "slug": "classic-heather-red-hoodie",
-      "price": 69,
-      "description": "Stay cozy and stylish with our Classic Heather Gray Hoodie. Crafted from soft, durable fabric, it features a kangaroo pocket, adjustable drawstring hood, and ribbed cuffs. Perfect for a casual day out or a relaxing evening in, this hoodie is a versatile addition to any wardrobe."
+      "price": "20",
+      "description": "Stay cozy and stylish with our Classic Heather Gray Hoodie. Crafted from soft, durable fabric, it features a kangaroo pocket, adjustable drawstring hood, and ribbed cuffs. Perfect for a casual day out or a relaxing evening in, this hoodie is a versatile addition to any wardrobe.",
+      "updatedAt": "2025-07-23T17:27:12.166Z"
     },
     {
       "id": 2,
@@ -35,6 +36,14 @@
       "price": 40,
       "creationAt": "2025-07-23T16:16:50.925Z",
       "updatedAt": "2025-07-23T16:33:15.616Z"
+    },
+    {
+      "id": 6,
+      "title": "dfdfd",
+      "slug": "fdfsdfsdf",
+      "price": "300",
+      "creationAt": "2025-07-23T17:25:23.660Z",
+      "updatedAt": "2025-07-23T17:27:02.591Z"
     }
   ]
 }

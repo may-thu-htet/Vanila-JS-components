@@ -206,9 +206,8 @@ tbody.addEventListener("click", (e) => {
 // function to turn row into input
 function turnRowIntoInput(tr) {
   const tds = tr.querySelectorAll("td");
-  console.log({ tds });
 
-  for (let i = 0; i < tds.length - 1; i++) {
+  for (let i = 0; i < tds.length; i++) {
     const input = document.createElement("input");
     const td = tds[i];
     const originalValue = td.textContent.trim();
@@ -287,7 +286,7 @@ async function saveRow(tr) {
 function cancelEdit(tr) {
   const tds = tr.querySelectorAll("td");
 
-  for (let i = 0; i < tds.length - 1; i++) {
+  for (let i = 0; i < tds.length; i++) {
     const td = tds[i];
     const originalValue = td.getAttribute("data-original");
 
@@ -336,7 +335,6 @@ async function updateProduct(productId, data) {
 
     if (!response.ok) throw new Error("Update failed!");
     const updatedProduct = await response.json();
-    console.log("Updated data: " + updatedProduct);
     return updatedProduct;
   } catch (error) {
     console.error("Update error: " + error);
@@ -355,7 +353,6 @@ async function createNewProduct(data) {
 
     if (!response.ok) throw new Error("Creation failed");
     const newProduct = await response.json();
-    console.log("New Product created : " + newProduct);
     return newProduct;
   } catch (error) {
     console.error("Creation error", error);
@@ -373,7 +370,6 @@ async function deleteProdut(productId) {
     if (!response.ok) throw new Error("Failed to delete product.");
 
     const result = await response.json();
-    console.log("Deleted from DB:" + result);
     return true;
   } catch (error) {
     console.error("Delete error, " + error);
