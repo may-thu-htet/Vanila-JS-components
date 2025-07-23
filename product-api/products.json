@@ -36,14 +36,6 @@
       "price": 40,
       "creationAt": "2025-07-23T16:16:50.925Z",
       "updatedAt": "2025-07-23T16:33:15.616Z"
-    },
-    {
-      "id": 6,
-      "title": "Jean Pants",
-      "slug": "jean pants 1",
-      "price": "35",
-      "creationAt": "2025-07-23T17:30:45.194Z",
-      "updatedAt": "2025-07-23T17:33:58.997Z"
     }
   ]
 }
