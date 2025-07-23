@@ -74,11 +74,13 @@ tr:hover div {
   color: white;
 }
 
-.edit-btn {
+.edit-btn,
+.save-btn {
   background-color: #3a87fc;
 }
 
-.edit-btn:hover {
+.edit-btn:hover,
+.save-btn:hover {
   background-color: #0243a8;
   color: white;
 }
@@ -100,7 +102,13 @@ tr:hover div {
   background-color: rgb(253, 189, 72);
 }
 
-.add-row:hover {
+.cancel-btn {
+  background-color: rgb(253, 189, 72);
+  color: rgb(34, 34, 34);
+}
+
+.add-row:hover,
+.cancel-btn:hover {
   background-color: rgb(190, 124, 1);
   color: white;
 }

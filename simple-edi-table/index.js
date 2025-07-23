@@ -79,21 +79,23 @@ async function displayTableBody(products) {
 // function for creating edit/delete button
 function createEdiDelButton() {
   // create edit/delete button
-  const editButton = document.createElement("button");
-  editButton.textContent = "Edit";
-  editButton.className = "btn edit-btn";
-
   const buttonWrapper = document.createElement("div");
   buttonWrapper.className = "button-wrapper";
-
+  const editButton = createBtn("edit");
   buttonWrapper.appendChild(editButton);
 
-  const deleteButton = document.createElement("button");
-  deleteButton.textContent = "Delete";
-  deleteButton.className = "btn delete-btn";
-
+  const deleteButton = createBtn("delete");
   buttonWrapper.appendChild(deleteButton);
+
   return buttonWrapper;
+}
+
+// function to create a button
+function createBtn(btnName) {
+  const button = document.createElement("button");
+  button.textContent = btnName[0].toUpperCase() + btnName.slice(1);
+  button.className = `btn ${btnName}-btn`;
+  return button;
 }
 
 // main function to fetch and render
@@ -107,7 +109,7 @@ initTable();
 
 // ---------------------------------------------------------------------------------------------
 
-// function for adding a new row to the table
+// function for adding a new row and creating input to the table
 const addRowBtn = document.querySelector(".add-row");
 
 // function to create input  cell
@@ -120,7 +122,7 @@ function createInput(type = "text") {
   return td;
 }
 
-// event listener
+// add row button event listener
 addRowBtn.addEventListener("click", () => {
   const tr = document.createElement("tr");
   const keys = Object.keys(products).slice(0, 4);
@@ -131,6 +133,36 @@ addRowBtn.addEventListener("click", () => {
   }
   tr.appendChild(createEdiDelButton());
   tbody.appendChild(tr);
+});
+
+//--------------------------------------------------------------------------------------------
+
+// function to handle edit button click
+// function handleEditBtn() {
+//   createSaveCancle();
+// }
+
+// functin to create save and cancle button
+function createSaveCancel(editBtn) {
+  const buttonWrapper = editBtn.closest(".button-wrapper");
+  if (!buttonWrapper) return;
+  // hide edit button
+  editBtn.style.display = "none";
+  // Find the delete button inside the wrapper
+  const deleteBtn = buttonWrapper.querySelector(".delete-btn");
+
+  const saveBtn = createBtn("save");
+  const cancelBtn = createBtn("cancel");
+
+  buttonWrapper.insertBefore(saveBtn, deleteBtn);
+  buttonWrapper.insertBefore(cancelBtn, deleteBtn);
+}
+
+// event listener to edit button
+// const editButton = document.querySelector(".edit-btn");
+tbody.addEventListener("click", (e) => {
+  if (e.target && e.target.classList.contains("edit-btn"))
+    createSaveCancel(e.target);
 });
 
 /**
