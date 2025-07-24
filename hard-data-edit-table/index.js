@@ -5,6 +5,8 @@
 // DOM elements
 const editBtn = document.querySelector(".edit-btn");
 const deleteBtn = document.querySelector(".delete-btn");
+const tableWrapper = document.querySelector(".table-container");
+const tbody = document.querySelector(".tbody");
 
 // event listeners
 document.addEventListener("click", (e) => {
@@ -16,6 +18,8 @@ document.addEventListener("click", (e) => {
     handleDelete(e.target);
   } else if (e.target.classList.contains("save-btn")) {
     handleSave(e.target);
+  } else if (e.target.classList.contains("add-btn")) {
+    handleAdd(e.target);
   }
 });
 
@@ -28,20 +32,17 @@ function handleEdit(editBtn) {
 
   editBtn.style.display = "none";
   const deleteBtn = btnWrapper.querySelector(".delete-btn");
-  const saveBtn = document.createElement("button");
-  const cancelBtn = document.createElement("button");
 
-  saveBtn.textContent = "Save";
-  saveBtn.className = "btn save-btn";
-
-  cancelBtn.textContent = "Cancel";
-  cancelBtn.className = "btn cancel-btn";
-
-  btnWrapper.insertBefore(saveBtn, deleteBtn);
-  btnWrapper.insertBefore(cancelBtn, deleteBtn);
+  btnWrapper.insertBefore(createButton("save"), deleteBtn);
+  btnWrapper.insertBefore(createButton("cancel"), deleteBtn);
 
   //   change all tds into inputs
   const tr = editBtn.closest("tr");
+  changeInput(tr);
+}
+
+// fuction to change td to inputs
+function changeInput(tr) {
   const tds = tr.querySelectorAll("td");
 
   for (let i = 0; i < tds.length - 1; i++) {
@@ -54,6 +55,14 @@ function handleEdit(editBtn) {
     td.textContent = "";
     td.appendChild(input);
   }
+}
+
+// function to create button
+function createButton(btnName) {
+  const button = document.createElement("button");
+  button.textContent = btnName.charAt(0).toUpperCase() + btnName.slice(1);
+  button.className = `btn ${btnName}-btn`;
+  return button;
 }
 
 // fuctions for save, cancel and delete buttons event listener
@@ -77,6 +86,21 @@ function handleCancel(cancelBtn) {
   const tr = cancelBtn.closest("tr");
   const tds = tr.querySelectorAll("td");
 
+  // Check if this is a new row with no "original-data"
+  let isNewRow = true;
+  for (let i = 0; i < tds.length - 1; i++) {
+    if (tds[i].hasAttribute("original-data")) {
+      isNewRow = false;
+      break;
+    }
+  }
+
+  if (isNewRow) {
+    tr.remove(); // remove the entire new row
+    return;
+  }
+
+  // Otherwise revert to original data
   for (let i = 0; i < tds.length - 1; i++) {
     const td = tds[i];
     const originalValue = td.getAttribute("original-data");
@@ -102,4 +126,44 @@ function handleDelete(deleteBtn) {
   const tr = deleteBtn.closest("tr");
   console.log({ tr });
   if (confirm("Are you sure you want to delete the row?")) tr.remove();
+}
+
+// create a new button and add it to the tbody
+tableWrapper.appendChild(createButton("add"));
+
+// function to add a addNewRow button
+function handleAdd() {
+  const tr = document.createElement("tr");
+  tr.className = "row";
+  const noOfCol = document
+    .querySelector(".thead")
+    .querySelector("tr")
+    .querySelectorAll("th").length;
+  console.log(noOfCol);
+
+  for (let i = 0; i < noOfCol - 1; i++) {
+    const td = document.createElement("td");
+    const input = document.createElement("input");
+    if (i === 2) {
+      td.className = "price";
+    }
+
+    input.placeholder = "Enter a value";
+    td.appendChild(input);
+    tr.appendChild(td);
+  }
+  const td = document.createElement("td");
+  const buttonWrapper = document.createElement("div");
+  buttonWrapper.className = "buttons";
+
+  const editBtn = createButton("edit");
+  editBtn.style.display = "none";
+
+  buttonWrapper.appendChild(editBtn);
+  buttonWrapper.appendChild(createButton("save"));
+  buttonWrapper.appendChild(createButton("cancel"));
+  buttonWrapper.appendChild(createButton("delete"));
+  td.appendChild(buttonWrapper);
+  tr.appendChild(td);
+  tbody.appendChild(tr);
 }

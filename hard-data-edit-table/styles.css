@@ -46,7 +46,7 @@ td {
 
 .btn {
   box-shadow: 1px 1px 2px rgb(158, 157, 157);
-  width: 50px;
+  width: 100px;
   height: 25px;
   border: none;
   border-radius: 3px;
@@ -82,11 +82,13 @@ td {
   text-align: right;
 }
 
-.cancel-btn {
+.cancel-btn,
+.add-btn {
   background-color: rgb(247, 166, 15);
   color: white;
 }
 
-.cancel-btn:hover {
+.cancel-btn:hover,
+.add-btn:hover {
   background-color: rgb(185, 121, 2);
 }
