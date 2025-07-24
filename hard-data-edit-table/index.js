@@ -20,9 +20,11 @@ function handleEdit(editBtn) {
 
   saveBtn.textContent = "Save";
   saveBtn.className = "btn save-btn";
+  saveBtn.onclick = (e) => handleSave(e.target);
 
   cancelBtn.textContent = "Cancel";
   cancelBtn.className = "btn cancel-btn";
+  cancelBtn.onclick = (e) => handleCancel(e.target);
 
   btnWrapper.insertBefore(saveBtn, deleteBtn);
   btnWrapper.insertBefore(cancelBtn, deleteBtn);
@@ -41,4 +43,45 @@ function handleEdit(editBtn) {
     td.textContent = "";
     td.appendChild(input);
   }
+}
+
+// fuctions for save, cancel and delete buttons event listener
+
+function handleSave(saveBtn) {
+  const tr = saveBtn.closest("tr");
+  const tds = tr.querySelectorAll("td");
+
+  for (let i = 0; i < tds.length - 1; i++) {
+    const td = tds[i];
+    const input = td.querySelector("input");
+    const newValue = input.value;
+
+    td.textContent = newValue;
+    td.removeAttribute("original-data");
+  }
+  removeSaveCancelBtn(saveBtn);
+}
+
+function handleCancel(cancelBtn) {
+  const tr = cancelBtn.closest("tr");
+  const tds = tr.querySelectorAll("td");
+
+  for (let i = 0; i < tds.length - 1; i++) {
+    const td = tds[i];
+    const originalValue = td.getAttribute("original-data");
+    td.textContent = originalValue;
+  }
+  removeSaveCancelBtn(cancelBtn);
+}
+
+// function to change back to edit-button
+function removeSaveCancelBtn(btn) {
+  // const saveOrCancel = btn.textContent == "Save" ? "save-btn" : "delete-btn";
+  const btnWrapper = btn.closest(".buttons");
+  const editBtn = btnWrapper.querySelector(".edit-btn");
+  const saveBtn = btnWrapper.querySelector(".save-btn");
+  const cancelBtn = btnWrapper.querySelector(".cancel-btn");
+  editBtn.style.display = "";
+  saveBtn.remove();
+  cancelBtn.remove();
 }
