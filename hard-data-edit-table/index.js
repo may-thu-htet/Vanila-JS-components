@@ -4,7 +4,20 @@
 
 // DOM elements
 const editBtn = document.querySelector(".edit-btn");
-editBtn.addEventListener("click", (e) => handleEdit(e.target));
+const deleteBtn = document.querySelector(".delete-btn");
+
+// event listeners
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("edit-btn")) {
+    handleEdit(e.target);
+  } else if (e.target.classList.contains("cancel-btn")) {
+    handleCancel(e.target);
+  } else if (e.target.classList.contains("delete-btn")) {
+    handleDelete(e.target);
+  } else if (e.target.classList.contains("save-btn")) {
+    handleSave(e.target);
+  }
+});
 
 // function to create save and cancel button and change all tds into input
 
@@ -20,11 +33,9 @@ function handleEdit(editBtn) {
 
   saveBtn.textContent = "Save";
   saveBtn.className = "btn save-btn";
-  saveBtn.onclick = (e) => handleSave(e.target);
 
   cancelBtn.textContent = "Cancel";
   cancelBtn.className = "btn cancel-btn";
-  cancelBtn.onclick = (e) => handleCancel(e.target);
 
   btnWrapper.insertBefore(saveBtn, deleteBtn);
   btnWrapper.insertBefore(cancelBtn, deleteBtn);
@@ -84,4 +95,11 @@ function removeSaveCancelBtn(btn) {
   editBtn.style.display = "";
   saveBtn.remove();
   cancelBtn.remove();
+}
+
+// function to handle delete event
+function handleDelete(deleteBtn) {
+  const tr = deleteBtn.closest("tr");
+  console.log({ tr });
+  if (confirm("Are you sure you want to delete the row?")) tr.remove();
 }
