@@ -52,12 +52,14 @@ td {
   border-radius: 3px;
 }
 
-.edit-btn {
+.edit-btn,
+.save-btn {
   background-color: rgb(96, 96, 248);
   color: white;
 }
 
-.edit-btn:hover {
+.edit-btn:hover,
+.save-btn:hover {
   background-color: rgb(32, 32, 150);
 }
 
@@ -78,4 +80,13 @@ td {
 
 .price {
   text-align: right;
+}
+
+.cancel-btn {
+  background-color: rgb(247, 166, 15);
+  color: white;
+}
+
+.cancel-btn:hover {
+  background-color: rgb(185, 121, 2);
 }
