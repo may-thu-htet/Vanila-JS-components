@@ -1,0 +1,94 @@
+.table-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.table-title {
+  text-align: center;
+}
+
+table {
+  border-collapse: collapse;
+  box-shadow: 1px 1px 2px rgb(158, 157, 157);
+  color: rgb(52, 52, 52);
+}
+
+tr,
+th,
+td {
+  border-collapse: collapse;
+  height: 30px;
+  border: 1px solid rgb(101, 100, 100);
+}
+
+td {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.thead {
+  background-color: rgb(138, 138, 255);
+  columns: white;
+}
+
+.row:nth-child(odd) {
+  background-color: rgb(237, 237, 254);
+}
+
+.row:nth-child(even) {
+  background-color: rgb(178, 178, 216);
+}
+
+.row:hover {
+  background-color: rgb(248, 209, 136);
+}
+
+.btn {
+  box-shadow: 1px 1px 2px rgb(158, 157, 157);
+  width: 100px;
+  height: 25px;
+  border: none;
+  border-radius: 3px;
+}
+
+.edit-btn,
+.save-btn {
+  background-color: rgb(96, 96, 248);
+  color: white;
+}
+
+.edit-btn:hover,
+.save-btn:hover {
+  background-color: rgb(32, 32, 150);
+}
+
+.delete-btn {
+  background-color: rgb(250, 33, 33);
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: rgb(148, 1, 1);
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.price {
+  text-align: right;
+}
+
+.cancel-btn,
+.add-btn {
+  background-color: rgb(247, 166, 15);
+  color: white;
+}
+
+.cancel-btn:hover,
+.add-btn:hover {
+  background-color: rgb(185, 121, 2);
+}
