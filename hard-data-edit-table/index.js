@@ -75,10 +75,9 @@ function handleSave(saveBtn) {
 
   for (let i = 0; i < tds.length - 1; i++) {
     const td = tds[i];
-    console.log({ td });
+
     const input = td.querySelector("input");
     const newValue = input.value;
-    console.log({ newValue });
 
     td.textContent = newValue;
     td.removeAttribute("original-data");
