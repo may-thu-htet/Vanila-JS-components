@@ -1,25 +1,27 @@
-// when you clicked the edit button,
-
-// save and cancel button appeared
-
 // DOM elements
 const editBtn = document.querySelector(".edit-btn");
 const deleteBtn = document.querySelector(".delete-btn");
 const tableWrapper = document.querySelector(".table-container");
 const tbody = document.querySelector(".tbody");
 
-// event listeners
+// event listeners (using event delegation)
 document.addEventListener("click", (e) => {
-  if (e.target.classList.contains("edit-btn")) {
-    handleEdit(e.target);
-  } else if (e.target.classList.contains("cancel-btn")) {
-    handleCancel(e.target);
-  } else if (e.target.classList.contains("delete-btn")) {
-    handleDelete(e.target);
-  } else if (e.target.classList.contains("save-btn")) {
-    handleSave(e.target);
-  } else if (e.target.classList.contains("add-btn")) {
-    handleAdd(e.target);
+  const editBtn = e.target.closest(".edit-btn");
+  const deleteBtn = e.target.closest(".delete-btn");
+  const saveBtn = e.target.closest(".save-btn");
+  const cancelBtn = e.target.closest(".cancel-btn");
+  const addBtn = e.target.closest(".add-btn");
+
+  if (editBtn) {
+    handleEdit(editBtn);
+  } else if (cancelBtn) {
+    handleCancel(cancelBtn);
+  } else if (deleteBtn) {
+    handleDelete(deleteBtn);
+  } else if (saveBtn) {
+    handleSave(saveBtn);
+  } else if (addBtn) {
+    handleAdd(addBtn);
   }
 });
 
@@ -73,8 +75,10 @@ function handleSave(saveBtn) {
 
   for (let i = 0; i < tds.length - 1; i++) {
     const td = tds[i];
+    console.log({ td });
     const input = td.querySelector("input");
     const newValue = input.value;
+    console.log({ newValue });
 
     td.textContent = newValue;
     td.removeAttribute("original-data");
@@ -124,7 +128,6 @@ function removeSaveCancelBtn(btn) {
 // function to handle delete event
 function handleDelete(deleteBtn) {
   const tr = deleteBtn.closest("tr");
-  console.log({ tr });
   if (confirm("Are you sure you want to delete the row?")) tr.remove();
 }
 
