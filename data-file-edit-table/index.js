@@ -15,6 +15,7 @@ tableContainer.addEventListener("click", (e) => {
   const deleteBtn = e.target.closest(".delete-btn");
   const saveBtn = e.target.closest(".save-btn");
   const cancelBtn = e.target.closest(".cancel-btn");
+  const addBtn = e.target.closest(".add-btn");
 
   if (editBtn) {
     handleEdit(editBtn);
@@ -27,6 +28,9 @@ tableContainer.addEventListener("click", (e) => {
   }
   if (cancelBtn) {
     handleCancel(cancelBtn);
+  }
+  if (addBtn) {
+    handleAdd();
   }
 });
 
@@ -157,10 +161,22 @@ function saveInput(saveBtn) {
 
 function showEditButton(btn) {
   const buttonWrapper = btn.closest(".buttons");
-  const cancelBtn = buttonWrapper.querySelector(".cancel-btn");
-  const editBtn = buttonWrapper.querySelector(".edit-btn");
-  const saveBtn = buttonWrapper.querySelector(".save-btn");
-  editBtn.style.display = "";
+  let cancelBtn = buttonWrapper.querySelector(".cancel-btn");
+  let editBtn = buttonWrapper.querySelector(".edit-btn");
+  let saveBtn = buttonWrapper.querySelector(".save-btn");
+  let deleteBtn = buttonWrapper.querySelector(".delete-btn");
+
+  if (!editBtn) {
+    editBtn = createButton("edit");
+    buttonWrapper.insertBefore(editBtn, saveBtn || cancelBtn);
+  } else {
+    editBtn.style.display = "";
+  }
+  if (!deleteBtn) {
+    deleteBtn = createButton("delete");
+    buttonWrapper.appendChild(deleteBtn);
+  }
+
   saveBtn.remove();
   cancelBtn.remove();
 }
@@ -170,15 +186,56 @@ function handleCancel(cancelBtn) {
   const tr = cancelBtn.closest("tr");
   const tds = tr.querySelectorAll("td");
 
+  let isNewRow = true;
+  for (let i = 0; i < tds.length - 1; i++) {
+    if (tds[i].hasAttribute("data-original")) {
+      isNewRow = false;
+      break;
+    }
+  }
+
+  if (isNewRow) {
+    tr.remove();
+    return;
+  }
+
   for (let i = 0; i < tds.length - 1; i++) {
     const td = tds[i];
     const originalVal = td.dataset.original;
     td.textContent = originalVal;
   }
+
   showEditButton(cancelBtn);
 }
 
 function handleDelete(deleteBtn) {
   const tr = deleteBtn.closest("tr");
   if (confirm("Are you sure you want to remove the row?")) tr.remove();
+}
+
+function handleAdd() {
+  const tr = document.createElement("tr");
+
+  keys.forEach(() => {
+    const td = document.createElement("td");
+    const input = document.createElement("input");
+
+    input.placeholder = "Enter a value";
+    td.appendChild(input);
+    tr.appendChild(td);
+  });
+
+  // Add action buttons (save & cancel)
+  const td = document.createElement("td");
+  const buttonWrapper = document.createElement("div");
+  buttonWrapper.className = "buttons";
+
+  buttonWrapper.appendChild(createButton("save"));
+  buttonWrapper.appendChild(createButton("cancel"));
+
+  td.appendChild(buttonWrapper);
+  tr.appendChild(td);
+
+  // Add row to tbody
+  tbody.appendChild(tr);
 }
