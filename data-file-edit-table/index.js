@@ -18,12 +18,15 @@ tableContainer.addEventListener("click", (e) => {
 
   if (editBtn) {
     handleEdit(editBtn);
-  } else if (deleteBtn) {
+  }
+  if (deleteBtn) {
     handleDelete(deleteBtn);
-  } else if (saveBtn) {
-    handleDelete(saveBtn);
-  } else if (cancelBtn) {
-    handleDelete(cancelBtn);
+  }
+  if (saveBtn) {
+    handleSave(saveBtn);
+  }
+  if (cancelBtn) {
+    handleCancel(cancelBtn);
   }
 });
 
@@ -109,6 +112,7 @@ function tdToInput(editBtn) {
     const input = document.createElement("input");
     const td = tds[i];
     const originalValue = td.textContent;
+    td.setAttribute("data-original", originalValue);
     input.value = originalValue;
     td.textContent = "";
     td.appendChild(input);
@@ -130,4 +134,51 @@ function switchButtons(editBtn) {
     buttonWrapper.insertBefore(createButton("save"), deleteBtn);
     buttonWrapper.insertBefore(createButton("cancel"), deleteBtn);
   }
+}
+
+// to handle the save click event
+function handleSave(saveBtn) {
+  saveInput(saveBtn);
+  showEditButton(saveBtn);
+}
+
+// function to save input data and display it in the table
+function saveInput(saveBtn) {
+  const tr = saveBtn.closest("tr");
+  const tds = tr.querySelectorAll("td");
+
+  for (let i = 0; i < tds.length - 1; i++) {
+    const td = tds[i];
+    const input = td.querySelector("input");
+    td.textContent = input.value;
+    td.removeAttribute("data-original");
+  }
+}
+
+function showEditButton(btn) {
+  const buttonWrapper = btn.closest(".buttons");
+  const cancelBtn = buttonWrapper.querySelector(".cancel-btn");
+  const editBtn = buttonWrapper.querySelector(".edit-btn");
+  const saveBtn = buttonWrapper.querySelector(".save-btn");
+  editBtn.style.display = "";
+  saveBtn.remove();
+  cancelBtn.remove();
+}
+
+// handle cancel => show original value in td and change save/cancel button to edit button
+function handleCancel(cancelBtn) {
+  const tr = cancelBtn.closest("tr");
+  const tds = tr.querySelectorAll("td");
+
+  for (let i = 0; i < tds.length - 1; i++) {
+    const td = tds[i];
+    const originalVal = td.dataset.original;
+    td.textContent = originalVal;
+  }
+  showEditButton(cancelBtn);
+}
+
+function handleDelete(deleteBtn) {
+  const tr = deleteBtn.closest("tr");
+  if (confirm("Are you sure you want to remove the row?")) tr.remove();
 }
