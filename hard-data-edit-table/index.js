@@ -114,7 +114,6 @@ function handleCancel(cancelBtn) {
 
 // function to change back to edit-button
 function removeSaveCancelBtn(btn) {
-  // const saveOrCancel = btn.textContent == "Save" ? "save-btn" : "delete-btn";
   const btnWrapper = btn.closest(".buttons");
   const editBtn = btnWrapper.querySelector(".edit-btn");
   const saveBtn = btnWrapper.querySelector(".save-btn");
