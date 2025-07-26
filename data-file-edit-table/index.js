@@ -154,7 +154,17 @@ function saveInput(saveBtn) {
   for (let i = 0; i < tds.length - 1; i++) {
     const td = tds[i];
     const input = td.querySelector("input");
-    td.textContent = input.value;
+    if (!input || input.value.trim() === "") {
+      alert("Please fill in all the fields before saving!");
+      return;
+    }
+  }
+
+  // If all inputs are valid, update the table cells
+  for (let i = 0; i < tds.length - 1; i++) {
+    const td = tds[i];
+    const input = td.querySelector("input");
+    td.textContent = input.value.trim();
     td.removeAttribute("data-original");
   }
 }
