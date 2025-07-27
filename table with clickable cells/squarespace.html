@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Data-File Edit-Table</title>
+    <link rel="stylesheet" href="sytles.css" />
+  </head>
+  <body>
+    <div class="table-container">
+      <table id="table">
+        <h1 class="table-title">Data-File Edit-Table</h1>
+        <table class="table">
+          <thead class="thead">
+            <tr>
+              <th>Email</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody class="tbody"></tbody>
+        </table>
+        <form action="submit">
+          <input name="email" type="email" value="email" />
+          <input name="first" type="text" value="first" />
+          <input name="last" type="text" value="last" />
+          <button type="submit" class="btn add-btn">Add Row</button>
+        </form>
+        <span id="error" class="error-message"></span>
+    </div>
+    <script type="module" src="square-space-online-assessment.js"></script>
+  </body>
+</html>

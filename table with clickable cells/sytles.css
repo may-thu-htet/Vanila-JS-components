@@ -53,13 +53,14 @@ td {
 }
 
 .edit-btn,
+.move-up-btn:not(:disabled),
 .save-btn {
   background-color: rgb(96, 96, 248);
   color: white;
 }
 
 .edit-btn:hover,
-.save-btn:hover {
+.move-up-btn:hover:not(:disabled) .save-btn:hover {
   background-color: rgb(32, 32, 150);
 }
 
@@ -83,12 +84,31 @@ td {
 }
 
 .cancel-btn,
+.move-down-btn:not(:disabled),
 .add-btn {
   background-color: rgb(247, 166, 15);
   color: white;
 }
 
 .cancel-btn:hover,
-.add-btn:hover {
+.move-down-btn:hover:not(:disabled) .add-btn:hover {
   background-color: rgb(185, 121, 2);
+}
+
+.move-down-btn:disabled {
+  background-color: rgb(96, 96, 248);
+  color: white;
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.move-up-btn:disabled {
+  background-color: rgb(247, 166, 15);
+  color: white;
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
 }

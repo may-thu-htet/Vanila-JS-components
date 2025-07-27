@@ -139,11 +139,13 @@ function handleMoveDown(button) {
  * @returns {void}
  */
 function updateBtnStates() {
-  const rows = document.querySelectorAll("#table tbody tr");
+  const rows = document.querySelector(".tbody").querySelectorAll("tr");
+  console.log({ rows });
 
   rows.forEach((row, index) => {
     const upBtn = row.querySelector(".move-up-btn");
     const downBtn = row.querySelector(".move-down-btn");
+    console.log({ upBtn });
 
     upBtn.disabled = index === 0;
     downBtn.disabled = index === rows.length - 1;
