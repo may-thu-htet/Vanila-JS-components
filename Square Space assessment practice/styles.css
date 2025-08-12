@@ -11,10 +11,74 @@
   gap: 10px;
 }
 
+h1 {
+  text-align: center;
+  color: rgb(44, 44, 44);
+}
+
+.table {
+  box-shadow: 1px 1px 1px rgb(149, 148, 148);
+}
+
+td {
+  padding: 0 2px;
+}
+
 .table,
 tr,
 th,
 td {
-  border: 1px solid black;
+  border: 1px solid rgb(93, 93, 93);
   border-collapse: collapse;
+  color: rgb(44, 44, 44);
+}
+
+th {
+  background-color: rgb(218, 187, 247);
+}
+
+.error-message {
+  color: red;
+}
+
+.btn {
+  border: none;
+  box-shadow: 1px 1px 1px rgb(149, 148, 148);
+  width: 100px;
+  border-radius: 3px;
+  height: 25px;
+}
+
+.btn-submit {
+  background-color: rgb(243, 200, 119);
+}
+
+.btn-submit:hover {
+  background-color: rgb(208, 137, 4);
+}
+
+.move-up-btn {
+  background-color: rgb(155, 247, 155);
+}
+
+.move-up-btn:hover {
+  background-color: rgb(3, 180, 3);
+}
+
+.move-down-btn {
+  background-color: rgb(244, 244, 141);
+}
+
+.move-down-btn:hover {
+  background-color: rgb(177, 177, 4);
+}
+
+.delete-btn {
+  background-color: red;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: rgb(126, 2, 2);
+  color: white;
 }
