@@ -12,6 +12,11 @@ document.forms[0].addEventListener("submit", (e) => {
   addRow();
 });
 
+/**
+ * Handles adding new row after validating the form inputs
+ * @returns {boolean} return false if validation fails, undefined otherwise
+ */
+
 function addRow() {
   // DOM element
   const form = document.forms[0];
