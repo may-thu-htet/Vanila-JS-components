@@ -55,13 +55,14 @@ function handleDelete(deleteBtn) {
 
 /**
  * Handles adding a new row to the table after validating form inputs
+ * @param {HTMLFormElement} form - form input
  * @returns {boolean} Returns false if validation fails, otherwise undefined
  */
 function handleAdd() {
   const form = document.forms[0];
-  const email = form.email.value.trim();
-  const first = form.first.value.trim();
-  const last = form.last.value.trim();
+  const email = form?.email?.value.trim() ?? "";
+  const first = form?.first?.value.trim() ?? "";
+  const last = form?.last?.value.trim() ?? "";
   const errorSpan = document.querySelector(".error-message");
 
   errorSpan.innerHTML = "";
