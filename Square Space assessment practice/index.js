@@ -57,5 +57,22 @@ function addRow() {
     `;
 
   tbody.appendChild(tr);
+  updateStates();
   form.reset();
+}
+
+// update the state of move up/down buttons
+function updateStates() {
+  // takes all rows from the table body
+  const rows = document.querySelector(".tobody").querySelectorAll("tr");
+  console.log({ rows });
+
+  // for each row, update the button state depending on row index
+  rows.forEach((row, index) => {
+    const upBtn = row.closest(".move-up-btn");
+    const downBtn = row.closest(".move-down-btn");
+
+    upBtn.disabled = index === 0;
+    downBtn.disabled = index === rows.length - 1;
+  });
 }

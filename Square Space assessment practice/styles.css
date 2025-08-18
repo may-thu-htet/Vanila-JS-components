@@ -61,20 +61,29 @@ tr {
   background-color: rgb(208, 137, 4);
 }
 
-.move-up-btn {
+.move-up-btn:not(:disabled) {
   background-color: rgb(155, 247, 155);
 }
-
-.move-up-btn:hover {
+.move-up-btn:disabled {
+  opacity: 0.5;
+}
+.move-up-btn:not(:disabled):hover {
   background-color: rgb(3, 180, 3);
 }
 
-.move-down-btn {
+.move-down-btn:not(:disabled) {
   background-color: rgb(244, 244, 141);
 }
 
-.move-down-btn:hover {
+.move-down-btn:not(:disabled):hover {
   background-color: rgb(177, 177, 4);
+}
+
+.move-down-btn:disabled {
+  background-color: rgb(244, 244, 141);
+  cursor: none;
+  color: white;
+  opacity: 0.5;
 }
 
 .delete-btn {
