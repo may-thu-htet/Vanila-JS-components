@@ -12,6 +12,21 @@ document.forms[0].addEventListener("submit", (e) => {
   addRow();
 });
 
+// table body event listeners
+tbody.addEventListener("click", (e) => {
+  const moveUpBtn = e.target.closest(".move-up-btn");
+  const moveDownBtn = e.target.closest(".move-down-btn");
+  const deleteBtn = e.target.closest(".delete-btn");
+
+  if (moveUpBtn) {
+    handleMoveUp(moveUpBtn);
+  } else if (moveDownBtn) {
+    handleMoveDown(moveDownBtn);
+  } else {
+    handleDelete(deleteBtn);
+  }
+});
+
 /**
  * Handles adding new row after validating the form inputs
  * @returns {boolean} return false if validation fails, undefined otherwise
@@ -64,15 +79,45 @@ function addRow() {
 // update the state of move up/down buttons
 function updateStates() {
   // takes all rows from the table body
-  const rows = document.querySelector(".tobody").querySelectorAll("tr");
-  console.log({ rows });
+  const rows = document.querySelector(".tbody").querySelectorAll("tr");
 
   // for each row, update the button state depending on row index
   rows.forEach((row, index) => {
-    const upBtn = row.closest(".move-up-btn");
-    const downBtn = row.closest(".move-down-btn");
+    const upBtn = row.querySelector(".move-up-btn");
+    const downBtn = row.querySelector(".move-down-btn");
 
     upBtn.disabled = index === 0;
     downBtn.disabled = index === rows.length - 1;
   });
+}
+
+// function to handle move up button
+function handleMoveUp(moveUpBtn) {
+  if (moveUpBtn.disabled) return;
+  const row = moveUpBtn.closest("tr");
+  const prevRow = row.previousElementSibling;
+  if (prevRow) {
+    row.parentNode.insertBefore(row, prevRow);
+    updateStates();
+  }
+}
+
+// function to handle move down button
+function handleMoveDown(moveDownBtn) {
+  if (moveDownBtn.disabled) return;
+  const row = moveDownBtn.closest("tr");
+  const nextRow = row.nextElementSibling;
+  if (nextRow) {
+    row.parentNode.insertBefore(nextRow, row);
+    updateStates();
+  }
+}
+
+// function to handle delete
+function handleDelete(deleteBtn) {
+  const rowToDelete = deleteBtn.closest("tr");
+  if (confirm("Are you sure you want to delete this row?")) {
+    rowToDelete.remove();
+    updateStates();
+  }
 }
