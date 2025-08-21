@@ -1,5 +1,3 @@
-import "./styles.css";
-
 // element from DOM
 let submitButton = document.getElementById("submit-button");
 let inputTask = document.getElementById("input-task");
