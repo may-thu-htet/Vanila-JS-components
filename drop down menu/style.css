@@ -1,0 +1,44 @@
+.drop-down-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.drop-down-btn {
+  background-color: rgb(54, 245, 54);
+  color: black;
+  box-shadow: 1px 1px 0.5px rgb(197, 196, 196);
+  border: none;
+  height: 25px;
+  border-radius: 3px;
+  width: 150px;
+}
+
+.drop-down-btn:hover,
+.drop-down-btn:focus {
+  background-color: rgb(2, 127, 2);
+  color: white;
+  cursor: pointer;
+}
+
+.drop-down-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 150px;
+  overflow: auto;
+  box-shadow: 1px 1px 0.5px rgb(197, 196, 196);
+}
+
+.drop-down-content a {
+  display: block;
+  text-decoration: none;
+  color: black;
+}
+
+.show {
+  display: block;
+}
+
+.drop-down-content a:hover {
+  background-color: rgb(230, 229, 229);
+}
