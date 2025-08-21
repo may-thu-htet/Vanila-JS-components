@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="checkboxes">
+        <form class="checkboxes-form">
+          <input
+            type="checkbox"
+            id="vehicle1"
+            name="bike"
+            value="bike"
+            class="checkbox"
+          />
+          <label for="vehicle1">I have a bike.</label><br />
+          <input
+            type="checkbox"
+            id="vehicle2"
+            name="car"
+            value="car"
+            class="checkbox"
+          />
+          <label for="vehicle2">I have a car.</label><br />
+          <input
+            type="checkbox"
+            id="vehicle3"
+            name="boat"
+            value="boat"
+            class="checkbox"
+          />
+          <label for="vehicle3">I have a boat.</label><br />
+          <button type="submit">Submit</button>
+        </form>
+        <p class="checkbox-text"></p>
+      </div>
+      <div class="radios">
+        <form class="radio-form">
+          <input type="radio" id="food1" name="fishNoodle" value="fishNoodle" />
+          <label for="food1">Fish Noodels</label><br />
+          <input type="radio" id="food2" name="montT" value="montT" />
+          <label for="food2">Mont T</label><br />
+          <input type="radio" id="food3" name="laphat" value="laphat" />
+          <label for="food3">Laphat</label><br />
+          <button type="submit">Submit</button>
+        </form>
+        <p class="radio-text"></p>
+      </div>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
