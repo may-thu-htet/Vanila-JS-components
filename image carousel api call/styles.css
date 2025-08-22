@@ -1,0 +1,17 @@
+.carousel-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 800px;
+  height: 600px;
+  overflow: hidden;
+}
+
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  max-width: 800px;
+  margin: auto;
+}

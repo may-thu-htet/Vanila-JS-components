@@ -5,7 +5,7 @@
  */
 
 //  base url
-const BASE_URL = "https://source.unsplash.com/random";
+const BASE_URL = "https://dog.ceo/api/breeds/image/random";
 
 //  DOM element
 const carouselContainer = document.querySelector(".carousel-img");
@@ -20,12 +20,17 @@ let index = 0;
 async function fetchImages(count = 5) {
   const promises = [];
   for (let i = 0; i < count; i++) {
-    promises.push(fetch(`${BASE_URL}/800x600?sig=${i}`));
+    promises.push(
+      fetch(`${BASE_URL}`)
+        .then((res) => res.json())
+        .then((data) => data.message)
+    );
   }
   try {
     const responses = await Promise.all(promises);
     console.log(responses);
-    images = responses.map((res) => res.url);
+    images = responses;
+    console.log(images);
     // to show the initial image
     showImages(0);
   } catch (error) {
@@ -47,6 +52,8 @@ function showImages(index) {
 carouselDiv.addEventListener("click", (e) => {
   const prev = e.target.closest(".prev-btn");
   const next = e.target.closest(".next-btn");
+
+  if (!images.length) return;
 
   if (prev) {
     index = (index - 1 + images.length) % images.length;
