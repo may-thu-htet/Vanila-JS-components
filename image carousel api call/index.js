@@ -9,8 +9,6 @@ const BASE_URL = "https://dog.ceo/api/breeds/image/random";
 
 //  DOM element
 const carouselContainer = document.querySelector(".carousel-img");
-const prevBtn = document.querySelector(".prev-btn");
-const nextBtn = document.querySelector(".next-btn");
 const carouselDiv = document.querySelector(".carousel");
 
 let images = [];
@@ -28,7 +26,6 @@ async function fetchImages(count = 5) {
   }
   try {
     images = await Promise.all(promises);
-    console.log(images);
     // to show the initial image
     showImages(0);
   } catch (error) {
@@ -55,11 +52,10 @@ carouselDiv.addEventListener("click", (e) => {
 
   if (prev) {
     index = (index - 1 + images.length) % images.length;
-    showImages(index);
   } else if (next) {
     index = (index + 1) % images.length;
-    showImages(index);
   }
+  showImages(index);
 });
 
 // initialize the carousel on page load
