@@ -27,9 +27,7 @@ async function fetchImages(count = 5) {
     );
   }
   try {
-    const responses = await Promise.all(promises);
-    console.log(responses);
-    images = responses;
+    images = await Promise.all(promises);
     console.log(images);
     // to show the initial image
     showImages(0);
