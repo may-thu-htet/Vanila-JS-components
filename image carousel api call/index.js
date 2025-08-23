@@ -12,6 +12,106 @@ const carouselContainer = document.querySelector(".carousel");
 const carouselImages = document.querySelector(".carousel-img");
 
 let images = [];
+let currentIndex = 0;
+let autoSlidingInterval;
+
+// Scalability
+/*
+JS file 1
+Fetching images from api
+ 1. Fetch a single image
+ 2. Fetch multiple images (reuse no.1)
+ 
+ Render images
+ 1. Render image at url
+ 2. Show image at(reuse no 1)
+ 3. Show next image(reuse no 2)
+ 4. Show prev image(reuse no 2)
+
+ Auto slide
+ 1. startAutoSlide
+ 2. stopAutoSlide
+
+ Initialize the carousel
+ 1. Fetch the data
+ 2. Show the first image
+ 3. Start auto slide
+
+ JS file 2
+ 1. Use functions from JS file 1
+ 2. Initialize the init function
+ 3. Add event delegation
+
+
+ */
+
+/*
+// function to show the images
+function showImage(currentIndex) {
+  // clear the existing image
+  carouselImages.innerHTML = "";
+  // create a new image element
+  const img = document.createElement("img");
+  img.src = images[currentIndex];
+  img.alt = `Dog-image-${currentIndex + 1}`;
+  carouselImages.appendChild(img);
+}
+
+// function to fetch the images
+async function fetchImages(count = 5) {
+  try {
+    for (let i = 0; i < count; i++) {
+      const res = await fetch(BASE_URL);
+      const data = await res.json();
+      images.push(data.message);
+      if (i === 0) {
+        showImage(0);
+      }
+      startAutoSlide();
+    }
+  } catch (error) {
+    console.log("Error fetching images!", error.message);
+  }
+}
+
+// functin to start showing images auto
+function startAutoSlide(interval = 3000) {
+  // stop the existing interval
+  stopAutoSlide();
+  autoSlidingInterval = setInterval(() => {
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage(currentIndex);
+  }, interval);
+}
+
+// function to stop auto image
+function stopAutoSlide() {
+  if (autoSlidingInterval) {
+    clearInterval(autoSlidingInterval);
+    autoSlidingInterval = null;
+  }
+}
+
+// event listeners
+carouselContainer.addEventListener("click", (e) => {
+  const nextBtn = e.target.closest(".next-btn");
+  const prevBtn = e.target.closest(".prev-btn");
+
+  if (nextBtn) {
+    currentIndex = (currentIndex + 1) % images.length;
+  } else if (prevBtn) {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+  }
+  stopAutoSlide();
+  showImage(currentIndex);
+  startAutoSlide();
+});
+
+fetchImages();
+*/
+
+/*
+let images = [];
 let index = 0;
 let autoSlideInterval;
 
@@ -76,6 +176,7 @@ carouselContainer.addEventListener("click", (e) => {
 });
 
 fetchImages();
+*/
 
 // //  DOM element
 // const carouselContainer = document.querySelector(".carousel-img");
