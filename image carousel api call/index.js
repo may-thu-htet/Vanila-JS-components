@@ -16,18 +16,15 @@ let index = 0;
 
 // function to fetch the images
 async function fetchImages(count = 5) {
-  const promises = [];
-  for (let i = 0; i < count; i++) {
-    promises.push(
-      fetch(`${BASE_URL}`)
-        .then((res) => res.json())
-        .then((data) => data.message)
-    );
-  }
   try {
-    images = await Promise.all(promises);
-    // to show the initial image
-    showImages(0);
+    for (let i = 0; i < count; i++) {
+      const res = await fetch(`${BASE_URL}`);
+      const data = await res.json();
+      images.push(data.message);
+      if (i === 0) {
+        showImages(0);
+      }
+    }
   } catch (error) {
     console.log("Error fetching images", error.message);
   }
