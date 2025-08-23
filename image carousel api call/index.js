@@ -13,6 +13,7 @@ const carouselImages = document.querySelector(".carousel-img");
 
 let images = [];
 let index = 0;
+let autoSlideInterval;
 
 // function to fetch the images from api
 async function fetchImages(count = 5) {
@@ -21,10 +22,10 @@ async function fetchImages(count = 5) {
       const res = await fetch(BASE_URL);
       const data = await res.json();
       images.push(data.message);
-      console.log(images);
       if (i === 0) {
         showImage(0);
       }
+      autoSlide(); // show auto sliding
     }
   } catch (error) {
     console.log("Error fetching the images", error.message);
@@ -40,6 +41,24 @@ function showImage(index) {
   carouselImages.appendChild(img);
 }
 
+//function to do auto slide
+function autoSlide(interval = 3000) {
+  stopAutoSlide(); // stop the auto sliding
+
+  autoSlideInterval = setInterval(() => {
+    if (!images.length) return;
+    index = (index + 1) % images.length;
+    showImage(index);
+  }, interval);
+}
+
+//function to stop auto slide
+function stopAutoSlide() {
+  if (!autoSlideInterval) return;
+  clearInterval(autoSlideInterval);
+  autoSlideInterval = null;
+}
+
 // event listener using event delegation
 carouselContainer.addEventListener("click", (e) => {
   const prevBtn = e.target.closest(".prev-btn");
@@ -50,7 +69,10 @@ carouselContainer.addEventListener("click", (e) => {
   } else if (nextBtn) {
     index = (index + 1) % images.length;
   }
+
+  stopAutoSlide();
   showImage(index);
+  autoSlide();
 });
 
 fetchImages();
