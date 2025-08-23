@@ -1,0 +1,41 @@
+<h2>Register</h2>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Form Validation</title>
+    <link rel="stylesheet" href="registration.css" />
+  </head>
+  <body>
+    <form id="registerForm" novalidate>
+      <div>
+        <input type="text" id="name" placeholder="Full Name" required />
+        <div class="error-message" id="nameError"></div>
+      </div>
+      <div>
+        <input type="email" id="email" placeholder="Email" required />
+        <div class="error-message" id="emailError"></div>
+      </div>
+      <div>
+        <input
+          type="password"
+          id="password"
+          placeholder="Password (min 6 chars)"
+          required
+        />
+        <div class="error-message" id="passwordError"></div>
+      </div>
+      <div>
+        <input
+          type="password"
+          id="confirmPassword"
+          placeholder="Confirm Password"
+          required
+        />
+        <div class="error-message" id="confirmPasswordError"></div>
+      </div>
+      <button type="submit" id="submitBtn" disabled>Register</button>
+    </form>
+    <script type="module" src="registration.js"></script>
+  </body>
+</html>

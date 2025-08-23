@@ -42,10 +42,8 @@ Fetching images from api
  2. Initialize the init function
  3. Add event delegation
 
-
  */
 
-/*
 // function to show the images
 function showImage(currentIndex) {
   // clear the existing image
@@ -108,7 +106,6 @@ carouselContainer.addEventListener("click", (e) => {
 });
 
 fetchImages();
-*/
 
 /*
 let images = [];
